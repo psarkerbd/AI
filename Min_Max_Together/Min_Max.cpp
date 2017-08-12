@@ -35,11 +35,8 @@ void cln()
 
 int DFS(int u , int depth)
 {
-    //if(depth == 0) return 0;
-
     visited[u] = 1;
 
-    //cout << "shurur depth = " << depth << "\n";
 
     if(depth & 1)
     {
@@ -53,7 +50,7 @@ int DFS(int u , int depth)
 
     int v = 0;
 
-    //cout << "u = " << u <<  " nodevalue = " << nodevalues[u]  << "\n";
+    //cout << "u = " << u << " depth = " << depth << " nodevalue = " << nodevalues[u] << " nval = " << nval << "\n";
 
     for(int i=0; i<adj[u].size(); i++)
     {
@@ -66,56 +63,30 @@ int DFS(int u , int depth)
             {
                 nodevalues[u] = max(DFS(v , depth-1) , nodevalues[u]);
 
-                //cout << "1. then , nodevalue for u = " << u << " nodevalue = " << nodevalues[u] << "\n";
-                //cout << "1. condition depth = " << depth << "\n";
+                //cout << "odd updated(maxi)->" << "u = " << u << " depth = " << depth << " nodevalue = " << nodevalues[u] << " nval = " << nval << "\n";
             }
 
             else
             {
                 nodevalues[u] = min(DFS(v , depth-1) , nodevalues[u]);
 
-                //cout << "1. then , nodevalue for u = " << u << " nodevalue = " << nodevalues[u] << "\n";
 
-                //cout << "2. condition depth = " << depth << "\n";
+                //cout << "even updated(mini)->" << "u = " << u << " depth = " << depth << " nodevalue = " << nodevalues[u] << " nval = " << nval << "\n";
             }
         }
     }
 
-    if(depth & 1)
-    {
-        //nodevalues[u] = max(DFS(v , depth-1) , nodevalues[u]);
+    if(depth == 1 || depth == 0) return nval;
 
-        //depth--;
-
-        //cout << "u = " << u << " nval = " << nval << " nodevalue = " << nodevalues[u]  << "\n";
-
-        //cout << "1 . return depth = " << depth << "\n";
-
-        return max(nval , nodevalues[u]);
-    }
-
-    else
-    {
-        //nodevalues[u] = min(DFS(v , depth-1) , nodevalues[u]);
-
-        //depth--;
-
-        //cout << "u = " << u << " nval = " << nval << " nodevalue = " << nodevalues[u]  << "\n";
-
-        //cout << "2. return depth = " << depth << "\n";
-
-        if(!nodevalues[u]) nodevalues[u] = inf;
-
-        //cout << "u = " << u << " nval = " << nval << " nodevalue = " << nodevalues[u]  << "\n";
-
-
-        return min(nval , nodevalues[u]);
-    }
+    return nodevalues[u];
 }
 
 int main()
 {
     int Node;
+
+    cout << "Number of Node: ";
+
     while(cin >> Node)
     {
         cln();
@@ -157,10 +128,14 @@ int main()
 
         cout << "After DFS, Node values are:\n";
 
-        for(i=0; i<Node; i++)
+        for(i=Node-1; i>=0; i--)
         {
             cout << "for node " << i << ": " << nodevalues[i] << "\n";
         }
+
+        cout << "Result = " << nodevalues[root] << "\n";
+
+        cout << "Number of Node: ";
     }
 
     return 0;
