@@ -1,0 +1,32 @@
+int dfs(int node, int cnt)
+
+{
+visit[node] = 1;
+for(i=0; i<adj[node].size(); i++)
+{
+
+    v = adj[node][i];
+    if(visit[v] == -1)
+    {
+        par[v] = node;
+        
+        val[v] = dfs(v , cnt+1);
+        
+        if(val[node] == -1){
+          val[node] = val[v];
+        }
+        
+        else if(cnt is even)
+              val[node] = max(val[node] , val[v]);
+        else
+              val[node] = min(val[node] , val[v]);
+      
+    }
+
+}
+
+return val[node];
+
+}
+
+*** all initialized by -1
